@@ -5,8 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class ListViewAdapter extends ArrayAdapter<Hero> {
@@ -36,14 +41,17 @@ public class ListViewAdapter extends ArrayAdapter<Hero> {
 
         //getting text views
         TextView textViewName = listViewItem.findViewById(R.id.textViewName);
-        TextView textViewImageUrl = listViewItem.findViewById(R.id.textViewImageUrl);
+        ImageView textViewImageUrl = listViewItem.findViewById(R.id.textViewImageUrl);
 
         //Getting the hero for the specified position
         Hero hero = heroList.get(position);
 
         //setting hero values to textviews
         textViewName.setText(hero.getName());
-        textViewImageUrl.setText(hero.getImageUrl());
+        Glide.with(mCtx)
+                .load(hero.getImageUrl())
+                .into(textViewImageUrl );
+
 
         //returning the listitem
         return listViewItem;
